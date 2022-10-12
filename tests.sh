@@ -14,7 +14,7 @@ mkdir tests || exit 1
 
 errors=0
 
-for task in $(find "$test_dir" -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
+for task in $(find "$test_dir" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
     results="tests/$task.txt"
 
     echo -n "Tests ran on: " >> $results
@@ -30,7 +30,7 @@ for task in $(find "$test_dir" -maxdepth 1 -not -name '.*' -type d -printf '%f\n
         echo >> $results
         echo >> $results
 
-        for test in $(find "$test_dir/$task" -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
+        for test in $(find "$test_dir/$task" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
             "./$task.out" < "$test_dir/$task/$test/in" &> "$test_dir/$task/$test/actual"
 
             echo "Test: $test" >> $results
