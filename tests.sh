@@ -20,7 +20,6 @@ for task in $(find "$test_dir" -maxdepth 1 -not -name '.*' -type d -printf '%f\n
     echo -n "Tests ran on: " >> $results
     date >> $results
     echo >> $results
-    echo >> $results
 
     echo "Compiler output:" >> $results
     g++ "$task.cpp" -o "$task.out" -std=c++14 -Wpedantic &>> $results
