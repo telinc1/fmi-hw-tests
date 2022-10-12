@@ -7,7 +7,7 @@
 
 test_dir=$1
 
-mkdir tests || exit 1
+mkdir test-results || exit 1
 
 # breaks horribly if a task or test name has a space in it
 # luckily, we control both of those
@@ -15,7 +15,7 @@ mkdir tests || exit 1
 errors=0
 
 for task in $(find "$test_dir" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
-    results="tests/$task.txt"
+    results="test-results/$task.txt"
 
     echo -n "Tests ran on: " >> $results
     date >> $results
@@ -35,6 +35,10 @@ for task in $(find "$test_dir" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -
 
             echo "Test: $test" >> $results
             echo "------" >> $results
+
+            echo "Input:" >> $results
+            cat "$test_dir/$task/$test/in" >> $results
+            echo >> $results
 
             echo "Expected:" >> $results
             cat "$test_dir/$task/$test/out" >> $results
