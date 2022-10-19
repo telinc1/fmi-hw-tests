@@ -31,7 +31,7 @@ for task in $(find "$test_dir" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -
         echo >> $results
 
         for test in $(find "$test_dir/$task" -mindepth 1 -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | sort); do
-            "./$task.out" < "$test_dir/$task/$test/in" &> "$test_dir/$task/$test/actual"
+            timeout 3 "./$task.out" < "$test_dir/$task/$test/in" &> "$test_dir/$task/$test/actual"
 
             echo "Test: $test" >> $results
             echo "------" >> $results
